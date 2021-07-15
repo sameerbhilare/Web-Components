@@ -21,8 +21,8 @@ class Modal extends HTMLElement {
               height: 100vh;
               background: rgba(0,0,0,0.75);
               z-index: 10;
-              opacity: 0;
-              pointer-events: none;
+              opacity: 0; /* initial not visible */
+              pointer-events: none; /* initial not visible */
           }
           #modal {
               position: fixed;
@@ -36,8 +36,8 @@ class Modal extends HTMLElement {
               display: flex;
               flex-direction: column;
               justify-content: space-between;
-              opacity: 0;
-              pointer-events: none;
+              opacity: 0; /* initial not visible */
+              pointer-events: none; /* initial not visible */
           }
 
           header {
@@ -62,6 +62,14 @@ class Modal extends HTMLElement {
           #actions button {
               margin: 0 0.25rem;
           }
+
+          /* change the styles based on when 'opened* attr is present on us-modal tag */
+          :host([opened]) #backdrop,
+          :host([opened]) #modal {
+              opacity: 1;
+              pointer-events: all;
+          }
+
         </style>
         <div id="backdrop"></div>
         <div id="modal">
@@ -77,6 +85,39 @@ class Modal extends HTMLElement {
           </section>
         </div>
     `;
+  }
+
+  /*
+    Lifecycle hook: this executes when an observed attribute is updated.
+    It receives 3 arguments - name of the attribute that got changed, old value and new value of that attribute
+
+    JavaScript does not by default watch all the attributes of this element 
+    because there might be a lot of elements which can change which you don't care about in your component.
+  */
+  attributeChangedCallback(name, oldValue, newValue) {
+    console.log({ name, oldValue, newValue });
+    /*
+    if (oldValue === newValue) {
+      return;
+    }
+
+    if (name === 'opened') {
+      if (this.hasAttribute('opened')) {
+        // the better option to change the style is NOT here but inside template above
+        this.shadowRoot.querySelector('#backdrop').style.opacity = 1;
+        this.shadowRoot.querySelector('#backdrop').style.pointerEvents = 'all';
+        this.shadowRoot.querySelector('#modal').style.opacity = 1;
+        this.shadowRoot.querySelector('#modal').style.pointerEvents = 'all';
+      }
+    }
+    */
+  }
+
+  // Callback: this is how we tell JS to 'observe' the property changes
+  // this is accessible from outside class
+  static get observedAttributes() {
+    // return an array with all the attribute names you want to listen to changes.
+    return ['opened']; // <uc-modal opened>...</uc-modal>
   }
 }
 
