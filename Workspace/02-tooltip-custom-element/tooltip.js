@@ -31,13 +31,21 @@ class Tooltip extends HTMLElement {
             z-index: 10;
           }
 
+          .icon {
+            background: black;
+            color: white;
+            padding: 0.25rem;
+            text-align: center;
+            border-radius: 50%;
+          }
+
           /* all slotted content that has 'highlight' class */
           ::slotted(.highlight) {
             border-bottom: 1px dotted red;
           }
         </style>
         <slot>Default value</slot> 
-        <span> (?)</span>
+        <span class="icon"> (?)</span>
     `;
   }
   
