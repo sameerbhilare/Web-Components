@@ -39,7 +39,7 @@ class Tooltip extends HTMLElement {
 
           /* setting conditional styling for our custom component. uc-tooltip element having "important" class */
           :host(.important) {
-            background: red;
+            background: var(--color-primary, #ccc);
           }
 
           /* stylng based on surrounding conditions */
