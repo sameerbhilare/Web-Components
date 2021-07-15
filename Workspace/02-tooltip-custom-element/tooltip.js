@@ -39,10 +39,9 @@ class Tooltip extends HTMLElement {
           }
 
           /* setting default styling for our custom component. we cannot use uc-tooltip here*/
-          /*
           :host {
-            background: red;
-          } */
+            position: relative;
+          } 
 
           /* setting conditional styling for our custom component. uc-tooltip element having "important" class */
           :host(.important) {
@@ -92,8 +91,6 @@ class Tooltip extends HTMLElement {
     this._tooltipIcon.addEventListener('mouseleave', this._hideTooltip.bind(this)); // so that 'this' inside of _showTooltip will always refer to this Tooltip object
     //this.appendChild(tooltipIcon); // attach to the main dom
     //this.shadowRoot.appendChild(tooltipIcon); // attach to the shadow dom
-    // styling tooltip
-    this.style.position = 'relative';
 
     this._render();
   }
@@ -155,7 +152,7 @@ class Tooltip extends HTMLElement {
     }
   }
 
-  // this is how we tel JS to 'observe' the property changes
+  // Callback: this is how we tell JS to 'observe' the property changes
   // this is accessible from outside class
   static get observedAttributes() {
     // return an array with all the attribute names you want to listen to changes.
