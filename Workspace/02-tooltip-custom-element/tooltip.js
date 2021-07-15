@@ -21,7 +21,16 @@ class Tooltip extends HTMLElement {
     */
 
     // usually we will have our template inside our custom element file which makes it truely reusable.
+    // styles here will only apply to this shadow dom of this custom element
     this.shadowRoot.innerHTML = `
+        <style>
+          div {
+            background-color: black;
+            color: white;
+            position: absolute;
+            z-index: 10;
+          }
+        </style>
         <slot>Default value</slot> 
         <span> (?)</span>
     `;
@@ -56,11 +65,7 @@ class Tooltip extends HTMLElement {
     //console.log(this);
     this._tooltipContainer = document.createElement('div');
     this._tooltipContainer.textContent = this._tooltipText;
-    // styling
-    this._tooltipContainer.style.backgroundColor = 'black';
-    this._tooltipContainer.style.color = 'white';
-    this._tooltipContainer.style.position = 'absolute';
-    this._tooltipContainer.style.zIndex = '10';
+    
     //this.appendChild(this._tooltipContainer);// attach to the main dom
     this.shadowRoot.appendChild(this._tooltipContainer);// attach to the shadow dom
   }
