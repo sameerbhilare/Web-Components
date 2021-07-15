@@ -3,18 +3,25 @@
   This is still an Autonomous custom element.
 */
 class Tooltip extends HTMLElement {
+  // we cannot access DOM inside of the constructor bcz this custom element is NOT yet attached to the DOM
   constructor() {
     super(); // imp
     // private variable
     this._tooltipContainer;
+    this._tooltipText = 'Dummy Text!'
   }
-
+  
   /*
-    Lifecycle method: connectedCallback()
-    Thi method is called when your element has been attached to the DOM 
-    and therefore this is the place for DOM initializations. So this is where you can access the DOM.
+  Lifecycle method: connectedCallback()
+  Thi method is called when your element has been attached to the DOM 
+  and therefore this is the place for DOM initializations. So this is where you can access the DOM.
   */
-  connectedCallback() {
+ connectedCallback() {   
+    if (this.hasAttribute('text')) {
+      // store the attribute value in this class instance variable
+      this._tooltipText = this.getAttribute('text'); // <uc-tooltip text="...">...</uc-tooltip>
+    }
+
     const tooltipIcon = document.createElement('span');
     tooltipIcon.textContent = ' (?)';
     // add event listener for hover in 
@@ -30,7 +37,7 @@ class Tooltip extends HTMLElement {
   _showTooltip() {
     //console.log(this);
     this._tooltipContainer = document.createElement('div');
-    this._tooltipContainer.textContent = 'This is a tooltip text!';
+    this._tooltipContainer.textContent = this._tooltipText;
     this.appendChild(this._tooltipContainer);
   }
 
