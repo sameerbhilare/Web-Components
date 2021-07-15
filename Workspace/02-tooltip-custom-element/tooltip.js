@@ -25,10 +25,16 @@ class Tooltip extends HTMLElement {
     this.shadowRoot.innerHTML = `
         <style>
           div {
+            font-weight: normal;
             background-color: black;
             color: white;
             position: absolute;
+            top: 1.5rem;
+            left: 0.7rem
             z-index: 10;
+            padding: 0.15rem;
+            border-radius: 3px;
+            box-shadow: 1px 1px 6px rgba(0,0,0,0.26);
           }
 
           /* setting default styling for our custom component. we cannot use uc-tooltip here*/
@@ -40,6 +46,7 @@ class Tooltip extends HTMLElement {
           /* setting conditional styling for our custom component. uc-tooltip element having "important" class */
           :host(.important) {
             background: var(--color-primary, #ccc);
+            padding: 0.15rem
           }
 
           /* stylng based on surrounding conditions */
