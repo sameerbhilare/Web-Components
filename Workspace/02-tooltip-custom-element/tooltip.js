@@ -32,9 +32,16 @@ class Tooltip extends HTMLElement {
           }
 
           /* setting default styling for our custom component. we cannot use uc-tooltip here*/
+          /*
           :host {
-            background: #ccc;
+            background: red;
+          } */
+
+          /* setting conditional styling for our custom component. uc-tooltip element having "important" class */
+          :host(.important) {
+            background: red;
           }
+
 
           .icon {
             background: black;
