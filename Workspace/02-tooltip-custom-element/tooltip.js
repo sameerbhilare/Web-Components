@@ -28,6 +28,7 @@ class Tooltip extends HTMLElement {
     Just a convention to use underscore in front of methods which will be only called inside the class.
   */
   _showTooltip() {
+    //console.log(this);
     this._tooltipContainer = document.createElement('div');
     this._tooltipContainer.textContent = 'This is a tooltip text!';
     this.appendChild(this._tooltipContainer);
@@ -37,6 +38,7 @@ class Tooltip extends HTMLElement {
     Just a convention to use underscore in front of methods which will be only called inside the class.
   */
     _hideTooltip() {
+      //console.log(this);
       this.removeChild(this._tooltipContainer);
     }
 }
