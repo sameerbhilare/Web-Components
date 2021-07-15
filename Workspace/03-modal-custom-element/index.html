@@ -29,6 +29,17 @@
 
   <p>Please confirm your choice.</p>
   <button>Show Details & Confirm</button>
+
+  <script>
+    // this will select 'button' only from main DOM and not from the Shadow DOM
+    const confirmButton = document.querySelector('button');
+    const modal = document.querySelector('uc-modal');
+
+    confirmButton.addEventListener('click', () => {
+      // adding 'opened' attr to our custom modal
+      modal.setAttribute('opened', '');
+    });
+  </script>
 </body>
 
 </html>
