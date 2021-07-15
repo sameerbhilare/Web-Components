@@ -9,6 +9,7 @@ class Tooltip extends HTMLElement {
     super(); // imp
     // private variable
     this._tooltipContainer;
+    this._tooltipIcon;
     this._tooltipText = 'Dummy Text!';
     // shadow dom - also define whether you can access your shadow DOM tree from outside this component or not.
     // Invoking the built-in attchShadow() exposes an object called 'shadowRoot'
@@ -84,11 +85,11 @@ class Tooltip extends HTMLElement {
       this._tooltipText = this.getAttribute('text'); // <uc-tooltip text="...">...</uc-tooltip>
     }
 
-    const tooltipIcon = this.shadowRoot.querySelector('span'); // get from shadow DOM
+    this._tooltipIcon = this.shadowRoot.querySelector('span'); // get from shadow DOM
     // add event listener for hover in
-    tooltipIcon.addEventListener('mouseenter', this._showTooltip.bind(this)); // so that 'this' inside of _showTooltip will always refer to this Tooltip object
+    this._tooltipIcon.addEventListener('mouseenter', this._showTooltip.bind(this)); // so that 'this' inside of _showTooltip will always refer to this Tooltip object
     // add event listener for hover out
-    tooltipIcon.addEventListener('mouseleave', this._hideTooltip.bind(this)); // so that 'this' inside of _showTooltip will always refer to this Tooltip object
+    this._tooltipIcon.addEventListener('mouseleave', this._hideTooltip.bind(this)); // so that 'this' inside of _showTooltip will always refer to this Tooltip object
     //this.appendChild(tooltipIcon); // attach to the main dom
     //this.shadowRoot.appendChild(tooltipIcon); // attach to the shadow dom
     // styling tooltip
@@ -139,6 +140,16 @@ class Tooltip extends HTMLElement {
   static get observedAttributes() {
     // return an array with all the attribute names you want to listen to changes.
     return ['text']; // <uc-tooltip text="...">...</uc-tooltip>
+  }
+
+  /*
+    Lifecycle hook: this executes when this element is removed from the DOM.
+    Good place for cleanup. e.g. cleanpu event listeners.
+  */
+  disconnectedCallback() {
+    console.log('disconnected!');
+    this._tooltipIcon.removeEventListener('mouseenter', this._showTooltip);
+    this._tooltipIcon.removeEventListener('mouseleave', this._hideTooltip);
   }
 }
 
