@@ -42,6 +42,11 @@ class Tooltip extends HTMLElement {
             background: red;
           }
 
+          /* stylng based on surrounding conditions */
+          :host-context(p) {
+            font-weight: bold;
+          }
+
 
           .icon {
             background: black;
