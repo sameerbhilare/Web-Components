@@ -31,6 +31,11 @@ class Tooltip extends HTMLElement {
             z-index: 10;
           }
 
+          /* setting default styling for our custom component. we cannot use uc-tooltip here*/
+          :host {
+            background: #ccc;
+          }
+
           .icon {
             background: black;
             color: white;
