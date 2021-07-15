@@ -3,7 +3,8 @@
   This is still an Autonomous custom element.
 */
 class Tooltip extends HTMLElement {
-  // we cannot access DOM inside of the constructor bcz this custom element is NOT yet attached to the DOM
+  // we cannot access real DOM inside of the constructor bcz this custom element is NOT yet attached to the DOM
+  // but we can access shadow DOM
   constructor() {
     super(); // imp
     // private variable
@@ -12,6 +13,9 @@ class Tooltip extends HTMLElement {
     // shadow dom - also define whether you can access your shadow DOM tree from outside this component or not.
     // Invoking the built-in attchShadow() exposes an object called 'shadowRoot'
     this.attachShadow({mode: 'open'}); // typically set to 'open' only
+
+    const template = document.querySelector('#tooltip-template');
+    this.shadowRoot.appendChild(template.content.cloneNode(true)); // take contents of template tag, true means deep clone
   }
   
   /*
@@ -25,8 +29,7 @@ class Tooltip extends HTMLElement {
       this._tooltipText = this.getAttribute('text'); // <uc-tooltip text="...">...</uc-tooltip>
     }
 
-    const tooltipIcon = document.createElement('span');
-    tooltipIcon.textContent = ' (?)';
+    const tooltipIcon = this.shadowRoot.querySelector('span'); // get from shadow DOM
     // add event listener for hover in 
     tooltipIcon.addEventListener('mouseenter', this._showTooltip.bind(this)); // so that 'this' inside of _showTooltip will always refer to this Tooltip object
     // add event listener for hover out 
