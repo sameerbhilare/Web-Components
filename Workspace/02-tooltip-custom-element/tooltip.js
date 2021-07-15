@@ -9,6 +9,9 @@ class Tooltip extends HTMLElement {
     // private variable
     this._tooltipContainer;
     this._tooltipText = 'Dummy Text!'
+    // shadow dom - also define whether you can access your shadow DOM tree from outside this component or not.
+    // Invoking the built-in attchShadow() exposes an object called 'shadowRoot'
+    this.attachShadow({mode: 'open'}); // typically set to 'open' only
   }
   
   /*
@@ -28,7 +31,8 @@ class Tooltip extends HTMLElement {
     tooltipIcon.addEventListener('mouseenter', this._showTooltip.bind(this)); // so that 'this' inside of _showTooltip will always refer to this Tooltip object
     // add event listener for hover out 
     tooltipIcon.addEventListener('mouseleave', this._hideTooltip.bind(this)); // so that 'this' inside of _showTooltip will always refer to this Tooltip object
-    this.appendChild(tooltipIcon);
+    //this.appendChild(tooltipIcon); // attach to the main dom
+    this.shadowRoot.appendChild(tooltipIcon);// attach to the shadow dom
     // styling tooltip
     this.style.position = 'relative';
   }
@@ -45,7 +49,8 @@ class Tooltip extends HTMLElement {
     this._tooltipContainer.style.color = 'white';
     this._tooltipContainer.style.position = 'absolute';
     this._tooltipContainer.style.zIndex = '10';
-    this.appendChild(this._tooltipContainer);
+    //this.appendChild(this._tooltipContainer);// attach to the main dom
+    this.shadowRoot.appendChild(this._tooltipContainer);// attach to the shadow dom
   }
 
   /*
@@ -53,7 +58,8 @@ class Tooltip extends HTMLElement {
   */
     _hideTooltip() {
       //console.log(this);
-      this.removeChild(this._tooltipContainer);
+      //this.removeChild(this._tooltipContainer); // remove from the main dom
+      this.shadowRoot.removeChild(this._tooltipContainer);// remove from the shadow dom
     }
 }
 
