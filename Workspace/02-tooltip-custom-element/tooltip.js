@@ -14,8 +14,17 @@ class Tooltip extends HTMLElement {
     // Invoking the built-in attchShadow() exposes an object called 'shadowRoot'
     this.attachShadow({mode: 'open'}); // typically set to 'open' only
 
+    // accessing the template defined in html file
+    /*
     const template = document.querySelector('#tooltip-template');
     this.shadowRoot.appendChild(template.content.cloneNode(true)); // take contents of template tag, true means deep clone
+    */
+
+    // usually we will have our template inside our custom element file which makes it truely reusable.
+    this.shadowRoot.innerHTML = `
+        <slot>Default value</slot> 
+        <span> (?)</span>
+    `;
   }
   
   /*
