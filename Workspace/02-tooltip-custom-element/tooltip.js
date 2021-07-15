@@ -5,6 +5,8 @@
 class Tooltip extends HTMLElement {
   constructor() {
     super(); // imp
+    // private variable
+    this._tooltipContainer;
   }
 
   /*
@@ -15,8 +17,28 @@ class Tooltip extends HTMLElement {
   connectedCallback() {
     const tooltipIcon = document.createElement('span');
     tooltipIcon.textContent = ' (?)';
+    // add event listener for hover in 
+    tooltipIcon.addEventListener('mouseenter', this._showTooltip.bind(this)); // so that 'this' inside of _showTooltip will always refer to this Tooltip object
+    // add event listener for hover out 
+    tooltipIcon.addEventListener('mouseleave', this._hideTooltip.bind(this)); // so that 'this' inside of _showTooltip will always refer to this Tooltip object
     this.appendChild(tooltipIcon);
   }
+
+  /*
+    Just a convention to use underscore in front of methods which will be only called inside the class.
+  */
+  _showTooltip() {
+    this._tooltipContainer = document.createElement('div');
+    this._tooltipContainer.textContent = 'This is a tooltip text!';
+    this.appendChild(this._tooltipContainer);
+  }
+
+  /*
+    Just a convention to use underscore in front of methods which will be only called inside the class.
+  */
+    _hideTooltip() {
+      this.removeChild(this._tooltipContainer);
+    }
 }
 
 /*
