@@ -19,13 +19,17 @@
     <!-- template elements are not rendered automatically -->
     <!-- using this template as a blueprint for our custom element -->
     <template id="tooltip-template">
-        <span> (?)</span>
+        <slot>Default value</slot> <span> (?)</span>
     </template>
     <p>
+        <!-- whatever passed between opening and closing tag of our custom element is passed to <slot> -->
         <uc-tooltip text="Web components is a set of standards!">Web Components</uc-tooltip> are awesome!
     </p>
     <p>
         <uc-tooltip>Here we go!</uc-tooltip>
+    </p>
+    <p>
+        <uc-tooltip></uc-tooltip>
     </p>
 </body>
 
