@@ -13,6 +13,7 @@
         }
     </style>
     <script src="tooltip.js"></script>
+    <script src="confirm-link.js"></script>
 </head>
 
 <body>
@@ -33,6 +34,16 @@
     <p>
         <uc-tooltip></uc-tooltip>
     </p>
+
+    <div>This does not get the web component styles!</div>
+
+    <!-- 
+        When extending a built-in element, you don't use your custom element tag,
+        instead you keep the original tag, so the anchor tag, but you add a new attribute named "is" 
+        and the value of that attributenow is your custom selector here.
+     -->
+    <a is="uc-confirm-link" href="https://www.google.com/">Google</a>
+
 </body>
 
 </html>
