@@ -8,8 +8,8 @@ class Tooltip extends HTMLElement {
   constructor() {
     super(); // imp
     // private variable
-    this._tooltipContainer;
     this._tooltipIcon;
+    this._tooltipVisible = false;
     this._tooltipText = 'Dummy Text!';
     // shadow dom - also define whether you can access your shadow DOM tree from outside this component or not.
     // Invoking the built-in attchShadow() exposes an object called 'shadowRoot'
@@ -94,6 +94,29 @@ class Tooltip extends HTMLElement {
     //this.shadowRoot.appendChild(tooltipIcon); // attach to the shadow dom
     // styling tooltip
     this.style.position = 'relative';
+
+    this._render();
+  }
+
+  // responsible for updating the DOM.
+  // central place for rendering logic
+  _render() {
+    let tooltipContainer;
+
+    if (this._tooltipVisible) {
+      tooltipContainer = document.createElement('div');
+      tooltipContainer.textContent = this._tooltipText;
+
+      //this.appendChild(this.tooltipContainer);// attach to the main dom
+      this.shadowRoot.appendChild(tooltipContainer); // attach to the shadow dom
+    } else {
+      // get from shadow DOM
+      tooltipContainer = this.shadowRoot.querySelector('div');
+      if (tooltipContainer) {
+        //this.removeChild(this.tooltipContainer); // remove from the main dom
+        this.shadowRoot.removeChild(tooltipContainer); // remove from the shadow dom
+      }
+    }
   }
 
   /*
@@ -101,11 +124,8 @@ class Tooltip extends HTMLElement {
   */
   _showTooltip() {
     //console.log(this);
-    this._tooltipContainer = document.createElement('div');
-    this._tooltipContainer.textContent = this._tooltipText;
-
-    //this.appendChild(this._tooltipContainer);// attach to the main dom
-    this.shadowRoot.appendChild(this._tooltipContainer); // attach to the shadow dom
+    this._tooltipVisible = true;
+    this._render();
   }
 
   /*
@@ -113,8 +133,8 @@ class Tooltip extends HTMLElement {
   */
   _hideTooltip() {
     //console.log(this);
-    //this.removeChild(this._tooltipContainer); // remove from the main dom
-    this.shadowRoot.removeChild(this._tooltipContainer); // remove from the shadow dom
+    this._tooltipVisible = false;
+    this._render();
   }
 
   /*
