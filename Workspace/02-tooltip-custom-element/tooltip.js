@@ -90,7 +90,7 @@ class Tooltip extends HTMLElement {
     // add event listener for hover out
     tooltipIcon.addEventListener('mouseleave', this._hideTooltip.bind(this)); // so that 'this' inside of _showTooltip will always refer to this Tooltip object
     //this.appendChild(tooltipIcon); // attach to the main dom
-    this.shadowRoot.appendChild(tooltipIcon); // attach to the shadow dom
+    //this.shadowRoot.appendChild(tooltipIcon); // attach to the shadow dom
     // styling tooltip
     this.style.position = 'relative';
   }
