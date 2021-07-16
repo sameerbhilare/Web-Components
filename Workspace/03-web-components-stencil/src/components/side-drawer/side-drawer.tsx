@@ -77,20 +77,23 @@ export class SideDrawer {
       </div>
     }
 
-    return <aside>
-      <header>
-        <h1>{this.title}</h1>
-        <button onClick={this.onCloseDrawer.bind(this)}>X</button>
-      </header>
-      <section id="tabs">
-        <button class={!this.showContactInfo ? 'active' :''}
-                onClick={this.onContentChanged.bind(this, 'nav')}>Navigation</button>
-        <button class={this.showContactInfo ? 'active' :''}
-                onClick={this.onContentChanged.bind(this, 'contact')}>Contact</button>
-      </section>
-      <main>
-        {mainContent}
-      </main>
-    </aside>
+    return [
+      <div class="backdrop" onClick={this.onCloseDrawer.bind(this)}></div>,
+      <aside>
+        <header>
+          <h1>{this.title}</h1>
+          <button onClick={this.onCloseDrawer.bind(this)}>X</button>
+        </header>
+        <section id="tabs">
+          <button class={!this.showContactInfo ? 'active' :''}
+                  onClick={this.onContentChanged.bind(this, 'nav')}>Navigation</button>
+          <button class={this.showContactInfo ? 'active' :''}
+                  onClick={this.onContentChanged.bind(this, 'contact')}>Contact</button>
+        </section>
+        <main>
+          {mainContent}
+        </main>
+      </aside>
+    ]
   }
 }
