@@ -24,6 +24,7 @@
     <script nomodule src="/build/web-components-stencil.js"></script>
   </head>
   <body>
+    <button id="side-drawer-btn">Open Side Menu</button>
     <uc-side-drawer title="Main Menu">
       <!-- All this goes into slot of the component
           Inside component, we could only style top level content, that is 'nav' in this case.
@@ -36,5 +37,15 @@
         </ul>
       </nav>
     </uc-side-drawer>
+
+    <script>
+      const sideDrawer = document.querySelector('uc-side-drawer');
+      const sideDrawerBtn = document.querySelector('#side-drawer-btn');
+      sideDrawerBtn.addEventListener('click', () => {
+        if (!sideDrawer.open) {
+          sideDrawer.open = true;
+        }
+      })
+    </script>
   </body>
 </html>

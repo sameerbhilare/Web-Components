@@ -18,7 +18,7 @@ export class SideDrawer {
   */
   @Prop({reflect: true}) title: string; //reflect: true to keep this class property in sync with tag attribute
 
-  //@Prop() open: boolean;
+  @Prop({reflect: true}) open: boolean;
 
   /*
     This is a method stencil will execute for us to parse the DOM it should generate as part of this component.
