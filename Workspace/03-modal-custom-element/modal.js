@@ -26,9 +26,21 @@ class Modal extends HTMLElement {
               opacity: 0; /* initial not visible */
               pointer-events: none; /* initial not visible */
           }
+
+          /* change the styles based on when 'opened' attr is present on us-modal tag */
+          :host([opened]) #backdrop,
+          :host([opened]) #modal {
+              opacity: 1;
+              pointer-events: all;
+          }
+
+          :host([opened]) #modal {
+              top: 15vh;
+          }
+
           #modal {
               position: fixed;
-              top: 15vh;
+              top: 10vh;
               left: 25%;
               width: 50%;
               z-index: 100;
@@ -40,14 +52,17 @@ class Modal extends HTMLElement {
               justify-content: space-between;
               opacity: 0; /* initial not visible */
               pointer-events: none; /* initial not visible */
+              transition: all 0.3s ease-out;
           }
 
           header {
               padding: 1rem;
+              border-bottom: 1px solid #ccc;
           }
 
           ::slotted(h1) {
               font-size: 1.25rem;
+              margin: 0;
           }
 
           #main {
@@ -63,13 +78,6 @@ class Modal extends HTMLElement {
 
           #actions button {
               margin: 0 0.25rem;
-          }
-
-          /* change the styles based on when 'opened* attr is present on us-modal tag */
-          :host([opened]) #backdrop,
-          :host([opened]) #modal {
-              opacity: 1;
-              pointer-events: all;
           }
 
         </style>
@@ -96,9 +104,11 @@ class Modal extends HTMLElement {
       console.dir(slots[1].assignedNodes()); // this is how we get access to the real DOM element content used for this slot.
     });
 
+    const backdrop = this.shadowRoot.querySelector('#backdrop');
     const cancelBtn = this.shadowRoot.querySelector('#cancel-btn');
     const confirmBtn = this.shadowRoot.querySelector('#confirm-btn');
 
+    backdrop.addEventListener('click', this._cancel.bind(this)); // close the modl on click outside modal
     cancelBtn.addEventListener('click', this._cancel.bind(this)); // 'this' inside of hind() should refer to Modal and not the Button
     confirmBtn.addEventListener('click', this._confirm.bind(this)); // 'this' inside of hind() should refer to Modal and not the Button
 
