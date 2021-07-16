@@ -1,12 +1,17 @@
 aside {
   position: fixed;
   top: 0;
-  left: 0;
+  left: -100%; /* to move the element out of the view initially */
   width: 30rem;
   max-width: 80%;
   height: 100vh;
   background: #f9f9f9;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  transition: left 0.3s ease-out;
+}
+
+:host([open]) aside {
+  left: 0;
 }
 
 header {

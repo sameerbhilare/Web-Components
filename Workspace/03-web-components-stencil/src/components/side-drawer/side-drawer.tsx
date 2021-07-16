@@ -18,13 +18,15 @@ export class SideDrawer {
   */
   @Prop({reflect: true}) title: string; //reflect: true to keep this class property in sync with tag attribute
 
-  @Prop() open: boolean;
+  //@Prop() open: boolean;
 
   /*
     This is a method stencil will execute for us to parse the DOM it should generate as part of this component.
     And we have tp return JSX code
   */
   render() {
+    // conditional content
+    /*
     let content = null;
     if (this.open) {
       content = <aside>
@@ -34,7 +36,13 @@ export class SideDrawer {
         </main>
       </aside>
     }
+    return content; */
 
-    return content;
+    return <aside>
+      <header><h1>{this.title}</h1></header>
+      <main>
+        <slot></slot>
+      </main>
+    </aside>
   }
 }
