@@ -37,7 +37,10 @@
 
     confirmButton.addEventListener('click', () => {
       // adding 'opened' attr to our custom modal
-      modal.setAttribute('opened', '');
+      //modal.setAttribute('opened', '');
+      if (!modal.isOpen) {
+        modal.open();
+      }
     });
   </script>
 </body>

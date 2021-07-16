@@ -6,6 +6,8 @@ class Modal extends HTMLElement {
   constructor() {
     super(); // must
 
+    this.isOpen = false;
+
     // creating shadow DOM
     this.attachShadow({ mode: 'open' });
 
@@ -96,21 +98,17 @@ class Modal extends HTMLElement {
   */
   attributeChangedCallback(name, oldValue, newValue) {
     console.log({ name, oldValue, newValue });
-    /*
-    if (oldValue === newValue) {
-      return;
+    
+    if (this.hasAttribute('opened')) {
+      this.isOpen = true;
+      // the better option to change the style is NOT here but inside template above
+      // this.shadowRoot.querySelector('#backdrop').style.opacity = 1;
+      // this.shadowRoot.querySelector('#backdrop').style.pointerEvents = 'all';
+      // this.shadowRoot.querySelector('#modal').style.opacity = 1;
+      // this.shadowRoot.querySelector('#modal').style.pointerEvents = 'all';
+    } else {
+      this.isOpen = false;
     }
-
-    if (name === 'opened') {
-      if (this.hasAttribute('opened')) {
-        // the better option to change the style is NOT here but inside template above
-        this.shadowRoot.querySelector('#backdrop').style.opacity = 1;
-        this.shadowRoot.querySelector('#backdrop').style.pointerEvents = 'all';
-        this.shadowRoot.querySelector('#modal').style.opacity = 1;
-        this.shadowRoot.querySelector('#modal').style.pointerEvents = 'all';
-      }
-    }
-    */
   }
 
   // Callback: this is how we tell JS to 'observe' the property changes
@@ -118,6 +116,13 @@ class Modal extends HTMLElement {
   static get observedAttributes() {
     // return an array with all the attribute names you want to listen to changes.
     return ['opened']; // <uc-modal opened>...</uc-modal>
+  }
+
+  // public method
+  // abstracting the complexity within this Modal class
+  open() {
+    this.setAttribute('opened', '');
+    this.isOpen = true;
   }
 }
 
