@@ -18,17 +18,23 @@ export class SideDrawer {
   */
   @Prop({reflect: true}) title: string; //reflect: true to keep this class property in sync with tag attribute
 
+  @Prop() open: boolean;
+
   /*
     This is a method stencil will execute for us to parse the DOM it should generate as part of this component.
     And we have tp return JSX code
   */
   render() {
-    //return <aside><h1>The Side Drawer</h1></aside>;
-    return <aside>
-      <header><h1>{this.title}</h1></header>
-      <main>
-        <slot></slot>
-      </main>
-    </aside>
+    let content = null;
+    if (this.open) {
+      content = <aside>
+        <header><h1>{this.title}</h1></header>
+        <main>
+          <slot></slot>
+        </main>
+      </aside>
+    }
+
+    return content;
   }
 }
