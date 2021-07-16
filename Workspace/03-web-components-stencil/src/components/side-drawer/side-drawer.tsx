@@ -28,6 +28,10 @@ export class SideDrawer {
     this.open = false;
   }
 
+  onContentChanged(content: string) {
+    console.log(content);
+  }
+
   /*
     This is a method stencil will execute for us to parse the DOM it should generate as part of this component.
     And we have tp return JSX code
@@ -46,17 +50,27 @@ export class SideDrawer {
     }
     return content; */
 
+    let mainContent = <slot></slot>;
+    mainContent = <div id="contact-information">
+      <h2>Contact Information</h2>
+      <p>You can reach us via Phone or Email.</p>
+      <ul>
+        <li>Phone: +91 1234567890</li>
+        <li>Email: <a href="mailto:test@test.com">test@test.com</a></li>
+      </ul>
+    </div>
+
     return <aside>
       <header>
         <h1>{this.title}</h1>
         <button onClick={this.onCloseDrawer.bind(this)}>X</button>
       </header>
       <section id="tabs">
-        <button class="active">Navigation</button>
-        <button>Contact</button>
+        <button class="active" onClick={this.onContentChanged.bind(this, 'nav')}>Navigation</button>
+        <button onClick={this.onContentChanged.bind(this, 'contact')}>Contact</button>
       </section>
       <main>
-        <slot></slot>
+        {mainContent}
       </main>
     </aside>
   }
