@@ -1,4 +1,4 @@
-import { Component, h, Prop } from "@stencil/core";
+import { Component, h, Prop, State } from "@stencil/core";
 
 @Component({
   tag: 'uc-side-drawer',
@@ -7,6 +7,13 @@ import { Component, h, Prop } from "@stencil/core";
 })
 // stencil will automatically extend this class from HTML Element during build process
 export class SideDrawer {
+
+  /*
+    Similar to Prop, Stencil will now watch attributes annotated with State for re-rendering,
+    but it will only watch for changed from inside this component and not from outside.
+    If you only expect changes from inside, use State, otherwise use Prop
+  */
+  @State() showContactInfo: boolean = false;
 
   /*
     Prop decorator adds automatic watcher, you could say.
@@ -29,7 +36,7 @@ export class SideDrawer {
   }
 
   onContentChanged(content: string) {
-    console.log(content);
+    this.showContactInfo = content === 'contact';
   }
 
   /*
@@ -51,14 +58,18 @@ export class SideDrawer {
     return content; */
 
     let mainContent = <slot></slot>;
-    mainContent = <div id="contact-information">
-      <h2>Contact Information</h2>
-      <p>You can reach us via Phone or Email.</p>
-      <ul>
-        <li>Phone: +91 1234567890</li>
-        <li>Email: <a href="mailto:test@test.com">test@test.com</a></li>
-      </ul>
-    </div>
+
+    if (this.showContactInfo) {
+
+      mainContent = <div id="contact-information">
+        <h2>Contact Information</h2>
+        <p>You can reach us via Phone or Email.</p>
+        <ul>
+          <li>Phone: +91 1234567890</li>
+          <li>Email: <a href="mailto:test@test.com">test@test.com</a></li>
+        </ul>
+      </div>
+    }
 
     return <aside>
       <header>
@@ -66,8 +77,10 @@ export class SideDrawer {
         <button onClick={this.onCloseDrawer.bind(this)}>X</button>
       </header>
       <section id="tabs">
-        <button class="active" onClick={this.onContentChanged.bind(this, 'nav')}>Navigation</button>
-        <button onClick={this.onContentChanged.bind(this, 'contact')}>Contact</button>
+        <button class={!this.showContactInfo ? 'active' :''}
+                onClick={this.onContentChanged.bind(this, 'nav')}>Navigation</button>
+        <button class={this.showContactInfo ? 'active' :''}
+                onClick={this.onContentChanged.bind(this, 'contact')}>Contact</button>
       </section>
       <main>
         {mainContent}
