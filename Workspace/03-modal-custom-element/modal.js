@@ -82,8 +82,8 @@ class Modal extends HTMLElement {
                 <slot></slot>
             </section>
             <section id="actions">
-                <button>Cancel</button>
-                <button>Okay</button>
+                <button id="cancel-btn">Cancel</button>
+                <button id="confirm-btn">Okay</button>
             </section>
         </div>
     `;
@@ -95,6 +95,12 @@ class Modal extends HTMLElement {
       // dir prints object
       console.dir(slots[1].assignedNodes()); // this is how we get access to the real DOM element content used for this slot.
     });
+
+    const cancelBtn = this.shadowRoot.querySelector('#cancel-btn');
+    const confirmBtn = this.shadowRoot.querySelector('#confirm-btn');
+
+    cancelBtn.addEventListener('click', this._cancel.bind(this)); // 'this' inside of hind() should refer to Modal and not the Button
+    confirmBtn.addEventListener('click', this._confirm.bind(this)); // 'this' inside of hind() should refer to Modal and not the Button
   }
 
   /*
@@ -131,6 +137,24 @@ class Modal extends HTMLElement {
   open() {
     this.setAttribute('opened', '');
     this.isOpen = true;
+  }
+
+  // abstracting the complexity within this Modal class
+  hide() {
+    if (this.hasAttribute('opened')) {
+      this.removeAttribute('opened');
+    }
+    this.isOpen = false;
+  }
+
+  // private method
+  _cancel() {
+    this.hide();
+  }
+
+  // private method
+  _confirm() {
+    this.hide();
   }
 }
 
