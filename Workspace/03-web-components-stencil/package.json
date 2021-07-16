@@ -1,5 +1,5 @@
 {
-  "name": "03-web-components-stencil",
+  "name": "web-components-stencil",
   "version": "0.0.1",
   "description": "Stencil Component Starter",
   "main": "dist/index.cjs.js",
@@ -9,7 +9,7 @@
   "types": "dist/custom-elements/index.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
-  "unpkg": "dist/03-web-components-stencil/03-web-components-stencil.esm.js",
+  "unpkg": "dist/web-components-stencil/web-components-stencil.esm.js",
   "files": [
     "dist/",
     "loader/"
