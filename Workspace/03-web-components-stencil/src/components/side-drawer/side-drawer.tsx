@@ -1,7 +1,9 @@
 import { Component, h } from "@stencil/core";
 
 @Component({
-  tag: 'uc-side-drawer'
+  tag: 'uc-side-drawer',
+  styleUrl: './side-drawer.css',
+  shadow: true // to have shadow DOM
 })
 // stencil will automatically extend this class from HTML Element during build process
 export class SideDrawer {
@@ -11,6 +13,6 @@ export class SideDrawer {
     And we have tp return JSX code
   */
   render() {
-    return <div><h1>The Side Drawer</h1></div>;
+    return <aside><h1>The Side Drawer</h1></aside>;
   }
 }
