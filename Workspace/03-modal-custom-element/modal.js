@@ -87,6 +87,14 @@ class Modal extends HTMLElement {
             </section>
         </div>
     `;
+
+    // accessing slots
+    const slots = this.shadowRoot.querySelectorAll('slot');
+    // targetting the unnamed slot, which is at 2nd position in our template
+    slots[1].addEventListener('slotchange', event => {
+      // dir prints object
+      console.dir(slots[1].assignedNodes()); // this is how we get access to the real DOM element content used for this slot.
+    });
   }
 
   /*
