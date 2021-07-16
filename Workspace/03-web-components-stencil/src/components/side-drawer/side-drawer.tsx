@@ -16,7 +16,7 @@ export class SideDrawer {
     and it will do so in a very efficient manner so that it does not re-render the entire DOM
     that was generated based on that but only the parts of the DOM that changed.
   */
-  @Prop() title: string;
+  @Prop({reflect: true}) title: string; //reflect: true to keep this class property in sync with tag attribute
 
   /*
     This is a method stencil will execute for us to parse the DOM it should generate as part of this component.
