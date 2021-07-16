@@ -101,6 +101,12 @@ class Modal extends HTMLElement {
 
     cancelBtn.addEventListener('click', this._cancel.bind(this)); // 'this' inside of hind() should refer to Modal and not the Button
     confirmBtn.addEventListener('click', this._confirm.bind(this)); // 'this' inside of hind() should refer to Modal and not the Button
+
+    // event fired from dispatchEvent will be only dispatched to the event.target which is this cancel button in our case.
+    /*
+    cancelBtn.addEventListener('cancel', () => {
+      console.log('cancel inside component...');
+    });*/
   }
 
   /*
@@ -148,8 +154,14 @@ class Modal extends HTMLElement {
   }
 
   // private method
-  _cancel() {
+  _cancel(event) {
     this.hide();
+
+    // create a 'cancel' event
+    const cancelEvent = new Event('cancel'); // event name is imp. This is exactly what we will use outside
+    // dispatchEvent takes totally new event. Fire the 'cancel' event 
+    // but it will be only dispatched to the event.target which is the cancel button in our case.
+    event.target.dispatchEvent(cancelEvent);
   }
 
   // private method
